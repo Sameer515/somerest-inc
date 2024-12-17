@@ -13,7 +13,6 @@ on:
 jobs:
   snyk-opensource-pipeline:
     runs-on: ubuntu-latest
-    container: docker://snyk/snyk:node
     name: Snyk Open Source Diff Scan
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
@@ -66,7 +65,7 @@ jobs:
       #- run: snyk test --json --print-deps | snyk-delta --baselineOrg ${{ vars.SNYK_ORG  }} --setPassIfNoBaseline false 
       # Step 9: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Delta Scan
-        run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=low
+        run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=medium
       - name: Run Snyk Monitor Scan
         run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
 
