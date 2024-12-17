@@ -63,10 +63,10 @@ jobs:
 
      # - name: Snyk Monitor Scan
        # run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
-      - run: snyk test --json --print-deps | snyk-delta --baselineOrg ${{ vars.SNYK_ORG  }} --setPassIfNoBaseline false 
+      #- run: snyk test --json --print-deps | snyk-delta --baselineOrg ${{ vars.SNYK_ORG  }} --setPassIfNoBaseline false 
       # Step 9: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Delta Scan
-        run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=medium
+        run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=low
       - name: Run Snyk Monitor Scan
         run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
 
