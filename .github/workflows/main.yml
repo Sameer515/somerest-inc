@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
       # Step 4: Install Snyk CLI
       - name: Install Snyk CLI
@@ -60,14 +60,14 @@ jobs:
       - name: Authenticate with Snyk
         run: snyk auth ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
 
-      - name: Snyk Monitor Scan
-        run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
-
+     # - name: Snyk Monitor Scan
+       # run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
+      #- run: snyk test --json --print-deps | snyk-delta --baselineOrg ${{ vars.SNYK_ORG  }} --setPassIfNoBaseline false 
       # Step 9: Run Snyk Open Source Scan and Diff
-      - name: Run Snyk Delta Scan
-        run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=medium
+     # - name: Run Snyk Delta Scan
+       # run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=medium
       - name: Run Snyk Monitor Scan
-        run: snyk monitor --all-projects --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
+        run: snyk monitor --all-projects --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} -d
 
       # Uncomment the following lines to enable Snyk Monitor with custom options
      #- name: Run snyk monitor
