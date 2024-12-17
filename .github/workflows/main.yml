@@ -13,6 +13,7 @@ on:
 jobs:
   snyk-opensource-pipeline:
     runs-on: ubuntu-latest
+    container: docker://snyk/snyk:node
     name: Snyk Open Source Diff Scan
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
@@ -37,7 +38,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
       # Step 4: Install Snyk CLI
       - name: Install Snyk CLI
