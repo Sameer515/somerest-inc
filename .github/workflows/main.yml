@@ -67,7 +67,7 @@ jobs:
      # - name: Run Snyk Delta Scan
        # run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=medium
       - name: Run Snyk Monitor Scan
-        run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
+        run: snyk monitor --all-projects --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
 
       # Uncomment the following lines to enable Snyk Monitor with custom options
      #- name: Run snyk monitor
