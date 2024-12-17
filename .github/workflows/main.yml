@@ -60,8 +60,8 @@ jobs:
       - name: Authenticate with Snyk
         run: snyk auth ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
 
-      - name: Snyk Monitor Scan
-        run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
+     # - name: Snyk Monitor Scan
+       # run: snyk monitor --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
 
       # Step 9: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Delta Scan
