@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */  
 
-'use strict'
+'use strict'   
 
 module.exports = function (grunt) {
   const os = grunt.option('os') || process.env.PCKG_OS_NAME || ''
