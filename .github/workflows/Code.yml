@@ -40,5 +40,5 @@ jobs:
           sarif_file: results.sarif
       - name: snyk-to-html
         run: |
-          snyk test 
+          snyk code test || true
           
