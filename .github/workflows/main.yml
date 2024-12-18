@@ -1,4 +1,4 @@
-name: Snyk Open Source Scans
+name: Snyk Open Source Scans  
 
 concurrency:
   group: snyk-opensource-actions-${{ github.ref }}
