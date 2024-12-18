@@ -1,0 +1,44 @@
+name: "Snyk Code Scan"
+
+concurrency:
+  group: snyk-code-actions-${{ github.ref }}
+  cancel-in-progress: true
+on:
+  merge_group:
+    branches: [checks_requested]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+jobs:
+  Pipeline-Job:
+    # Configure Environment
+    name: 'Snyk Code Scan'
+    runs-on: ubuntu-latest
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
+
+    steps:
+      # Checkout Code
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Install and Authenticate to Snyk
+      - name: Install Snyk & Authenticate
+        run: |
+          sudo npm install -g snyk
+          sudo npm install snyk-to-html -g
+          snyk auth ${SNYK_TOKEN}
+      # Run Snyk Code
+      - name: Run Snyk Code
+        run: |
+          npm i
+          snyk code test --sarif  > results.sarif
+        continue-on-error: true
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: results.sarif
+      - name: snyk
+        run: |
+          snyk code test || true
+          
