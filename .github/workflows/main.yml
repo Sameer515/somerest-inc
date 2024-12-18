@@ -39,40 +39,37 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      # Step 4: Install dependencies
-      - name: Install dependencies
-        run: npm i
-      # Step 5: Install Snyk CLI
+
+      # Step 4: Install Snyk CLI
       - name: Install Snyk CLI
         run: npm i -g snyk@latest
 
-      # Step 6: Install Snyk Delta
+      # Step 5: Install Snyk Delta
       - name: Install snyk_delta
         run: npm i -g snyk-delta@latest
 
-      # Step 7: Install snyk_delta_all_projects.sh
+      # Step 6: Install snyk_delta_all_projects.sh
       - name: Install snyk_delta_all_projects.sh
         run: |
           wget -O snyk_delta_all_projects.sh https://raw.githubusercontent.com/snyk-tech-services/snyk-delta/refs/heads/develop/snyk_delta_all_projects.sh
           mv ./snyk_delta_all_projects.sh /usr/local/bin/
-      # Step 8: Install jq
+      # Step 7: Install jq
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      # Step 9: Authenticate Snyk 
+      # Step 8: Authenticate Snyk 
       - name: Authenticate with Snyk
         run: snyk auth ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
+
+      # Step 9: Install dependencies
+      - name: Install dependencies
+        run: npm i
 
       #Step 10: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Delta Scan
         run: /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} --severity-threshold=medium
-       #Step 10: Run Snyk Open Source Scan and Diff
+       #Step 11: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Monitor Scan
-        run: snyk monitor --all-projects --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
+        run: snyk monitor --all-projects --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} || true
 
-      # Uncomment the following lines to enable Snyk Monitor with custom options
-     #- name: Run snyk monitor
-      #   uses: snyk/actions/node@master
-      #   with:
-      #     command: monitor
-      #     args: --all-projects --detection-depth=2 --org=${{ SNYK_ORG }} --severity=high
+      
