@@ -30,6 +30,7 @@ jobs:
       # Run Snyk Code
       - name: Run Snyk Code
         run: |
+          npm i
           snyk code test --sarif  > results.sarif
         continue-on-error: true
       - name: Upload SARIF file
