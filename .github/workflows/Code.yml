@@ -38,7 +38,9 @@ jobs:
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: results.sarif
-      - name: snyk-to-html
-        run: |
-          snyk code test || true
+          category: Snykcode-analysis
+
+      #- name: snyk-to-html
+       # run: |
+          #snyk code test || true
           
