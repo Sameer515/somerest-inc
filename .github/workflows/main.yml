@@ -13,7 +13,7 @@ on:
 jobs:
   snyk-opensource-pipeline:
     runs-on: ubuntu-latest
-    container: docker://snyk/snyk:node
+    #container: docker://snyk/snyk:node
     name: Snyk Open Source Diff Scan
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
           node-version: 18
       # Step 4: Install Snyk CLI
       - name: Install dependencies
-        run: npm i
+        run: npm ci
       # Step 4: Install Snyk CLI
       - name: Install Snyk CLI
         run: npm i -g snyk@latest
@@ -57,7 +57,7 @@ jobs:
           mv ./snyk_delta_all_projects.sh /usr/local/bin/
       # Step 7: Install jq
       - name: Install jq
-        run: npm install --location=global node-jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
       # Step 8: Authenticate Snyk 
       - name: Authenticate with Snyk
