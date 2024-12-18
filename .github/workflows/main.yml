@@ -62,11 +62,9 @@ jobs:
         run: snyk auth ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
 
       # Step 9: Install dependencies
-      - name: Install Dependencies for Build Folder
-        run: |
-           cd build
-            npm i
-            cd ..
+      - name: Install Dependencies 
+        run: npm i
+       
           
     
       #Step 10: Run Snyk Open Source Scan and Diff
