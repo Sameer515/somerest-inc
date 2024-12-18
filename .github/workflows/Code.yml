@@ -33,10 +33,10 @@ jobs:
           snyk code test --sarif  > results.sarif
         continue-on-error: true
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: snyk-code.sarif
+          sarif_file: results.sarif
       - name: snyk-to-html
         run: |
           snyk test --json | snyk-to-html -o result.html
