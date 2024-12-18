@@ -64,11 +64,10 @@ jobs:
       # Step 9: Install dependencies
       - name: Install Dependencies for Build Folder
         run: |
-          if [ -f build/package.json ]; then
-            cd build
+           cd build
             npm i
             cd ..
-            fi
+          
     
       #Step 10: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Delta Scan
