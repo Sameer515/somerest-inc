@@ -9,35 +9,29 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
 jobs:
-  Pipeline-Job:
-    # Configure Environment
-    name: 'Snyk Code Scan'
+  snyk-code:
     runs-on: ubuntu-latest
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
-
     steps:
-      # Checkout Code
-      - name: Checkout Code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@master
+    - uses: snyk/actions/setup@master
+    - name: Download snyk-to-html
+      run: |
+        curl -Lo ./snyk-to-html https://github.com/snyk/snyk-to-html/releases/download/v2.3.7/snyk-to-html-linux
+        chmod +x ./snyk-to-html
 
-      # Install and Authenticate to Snyk
-      - name: Install Snyk & Authenticate
-        run: |
-          sudo npm install -g snyk
-          sudo npm install snyk-to-html -g
-          snyk auth ${SNYK_TOKEN}
-      
-          - name:  Run Snyk Code
-            run: |
-          snyk code test --json-file-output=code-results.json || true
-          snyk-to-html -i code-results.json -o code-results.html
-          continue-on-error: true
-          - name: Archive results
-            uses: actions/upload-artifact@v3
-            with:
-              name: Snyk_Code_Report
-              path: code-results.html
+    - name: Run Snyk Code
+      run: |
+        snyk code test --json-file-output=code-results.json || true
+        ./snyk-to-html -i code-results.json -o code-results.html
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_GH_ACTIONS_TOKEN }}
+
+    - name: Archive results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Snyk_Code_Report
+        path: code-results.html
           
       # Run Snyk Code
     #  - name: Run Snyk Code
