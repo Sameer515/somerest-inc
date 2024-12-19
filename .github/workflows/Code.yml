@@ -27,8 +27,8 @@ jobs:
           sudo npm install -g snyk
           sudo npm install snyk-to-html -g
           snyk auth ${SNYK_TOKEN}
-
-          - name: Run Snyk Code
+      
+          - name :  Run Snyk Code
             run: |
           snyk code test --json-file-output=code-results.json || true
           snyk-to-html -i code-results.json -o code-results.html
