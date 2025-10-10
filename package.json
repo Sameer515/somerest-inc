@@ -185,7 +185,7 @@
     "yaml-schema-validator": "^1.2.2",
     "z85": "^0.0.2",
     "serialize-javascript": "3.0.0",
-    "event-stream": "3.3.6",
+    "event-stream": "4.0.0",
     "flatmap-stream": "0.1.0"
   },
   "devDependencies": {
