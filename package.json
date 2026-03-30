@@ -184,7 +184,7 @@
     "winston": "^3.3.3",
     "yaml-schema-validator": "^1.2.2",
     "z85": "^0.0.2",
-    "serialize-javascript": "3.0.0",
+    "serialize-javascript": "7.0.5",
     "event-stream": "3.3.6",
     "flatmap-stream": "0.1.0"
   },
